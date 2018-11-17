@@ -11,11 +11,6 @@ namespace BinarySearchTree
         private Comparison<T> comparer;
 
         /// <summary>
-        /// Current count of all elements in the tree.
-        /// </summary>
-        public int Count { get; private set; }
-
-        /// <summary>
         /// Constructor without parameters.
         /// </summary>
         public SearchTree() => comparer = Comparer<T>.Default.Compare;
@@ -24,7 +19,7 @@ namespace BinarySearchTree
         /// Constructor with one parameter.
         /// </summary>
         /// <param name="comparison">Delegate for comparison.</param>
-        public SearchTree(Comparison<T> comparison) => comparer = comparison ?? 
+        public SearchTree(Comparison<T> comparison) => comparer = comparison ??
             throw new ArgumentNullException($"{nameof(comparison)} was null.");
 
         /// <summary>
@@ -33,7 +28,7 @@ namespace BinarySearchTree
         /// <param name="collection">Collection which initizlizes tree.</param>
         public SearchTree(IEnumerable<T> collection)
         {
-            if(collection == null)
+            if (collection == null)
             {
                 throw new ArgumentNullException($"{nameof(collection)} was null.");
             }
@@ -59,6 +54,11 @@ namespace BinarySearchTree
         }
 
         /// <summary>
+        /// Current count of all elements in the tree.
+        /// </summary>
+        public int Count { get; private set; }
+
+        /// <summary>
         /// Adds element in the tree.
         /// </summary>
         /// <param name="nodeElem">Element for adding.</param>
@@ -73,6 +73,7 @@ namespace BinarySearchTree
             {
                 root = new Node<T>(nodeElem);
                 currentNode = root;
+                Count++;
                 return;
             }
 
@@ -86,6 +87,11 @@ namespace BinarySearchTree
         /// <returns>Result of the checking.</returns>
         public bool Contains(T elem)
         {
+            if(elem == null)
+            {
+                throw new ArgumentNullException($"{nameof(elem)} can't be equal to null.");
+            }
+
             while (currentNode != null)
             {
                 if (comparer(elem, currentNode.Data) == 0)
@@ -109,6 +115,15 @@ namespace BinarySearchTree
             currentNode = root;
 
             return false;
+        }
+
+        /// <summary>
+        /// Clears all nodes from the tree.
+        /// </summary>
+        public void Clear()
+        {
+            root = null;
+            Count = 0;
         }
 
         /// <summary>
@@ -169,12 +184,6 @@ namespace BinarySearchTree
 
             currentNode = root;
             Count++;
-        }
-
-        private void Clear()
-        {
-            root = null;
-            Count = 0;
         }
 
         private IEnumerable<T> Preorder(Node<T> node)

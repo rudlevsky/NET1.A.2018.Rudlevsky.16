@@ -13,7 +13,15 @@ namespace BinarySearchTree
         /// <summary>
         /// Constructor without parameters.
         /// </summary>
-        public SearchTree() => comparer = Comparer<T>.Default.Compare;
+        public SearchTree()
+        {
+            if (!typeof(IComparable<T>).IsAssignableFrom(typeof(T)))
+            {
+                throw new NotImplementedException("Interface IComparable is not implemented.");
+            }
+
+            comparer = Comparer<T>.Default.Compare;
+        }
 
         /// <summary>
         /// Constructor with one parameter.

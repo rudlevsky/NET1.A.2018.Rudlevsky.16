@@ -331,7 +331,9 @@ namespace BinarySearchTreeTests
         [Test]
         public void SearchTree_MethodContains_ThrowsArgumentNullException()
         => Assert.Throws<ArgumentNullException>(() => new SearchTree<string>().Contains(null));
-        
 
+        [Test]
+        public void SearchTree()
+        => Assert.Throws<NotImplementedException>(() => new SearchTree<Point>());     
     }
 }

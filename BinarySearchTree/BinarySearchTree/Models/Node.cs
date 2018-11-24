@@ -5,7 +5,7 @@ namespace BinarySearchTree.Models
     /// Class represents a node of the tree.
     /// </summary>
     /// <typeparam name="T">Type of the data in node.</typeparam>
-    public class Node<T>
+    internal class Node<T>
     {
         public Node(T data) => Data = data;
 
